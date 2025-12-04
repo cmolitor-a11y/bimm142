@@ -1,0 +1,18 @@
+---
+title: "Class 08: Mini project"
+author: "Charlize Molitor (PID:A18515740)"
+format: gfm
+toc: true
+---
+
+## Background
+ 
+ The goal of this mini-project is for you to explore a complete analysis using the unsupervised learning techniques covered in class. You’ll extend what you’ve learned by combining PCA as a preprocessing step to clustering using data that consist of measurements of cell nuclei of human breast masses. This expands on our RNA-Seq analysis from last day.
+ 
+## Data import
+Data was downloaded from the class website as a CSV file
+
+```{r}
+wisc.df <- read.csv("WisconsinCancer.csv", row.names=1)
+```
+
