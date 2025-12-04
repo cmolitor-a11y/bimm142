@@ -1,7 +1,7 @@
 ---
 title: "Class 12: Transcriptomics and the analysis of RNA-Seq data"
 author: "Charlize Molitor (PID: A18515740)"
-format: pdf
+format: gfm
 toc: TRUE
 ---
 
