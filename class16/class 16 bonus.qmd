@@ -1,0 +1,67 @@
+---
+title: "Class 16"
+author: "Charlize Molitor (PID: 18515740)"
+format: pdf
+---
+
+## Insert your files :)
+
+```{r}
+library(readr)
+myresults <- read_tsv("my_results.tsv")
+head(myresults)
+```
+## Remove the non-numerical columns from data using subset 
+
+```{r}
+new_data <- subset(myresults, select = -c(
+NP_034603.2, XP_002663941.1))
+head(new_data)
+```
+
+## Make your PCA
+
+```{r}
+results <- prcomp(new_data, scale= TRUE)
+summary(results)
+```
+
+## Create your first PCA graph 
+## PC1 vs PC2
+
+```{r}
+library(ggplot2)
+ggplot(results$x, aes(x = PC1, y = PC2))  +
+  geom_point() + 
+    ggtitle("PCA : PC1 vs PC2") + 
+    xlab("PC1") + 
+    ylab("PC2")
+
+```
+
+## PC1 vs PC3
+
+```{r}
+library(ggplot2)
+ggplot(results$x, aes(x = PC1, y = PC3))  +
+  geom_point() + 
+    ggtitle("PCA : PC1 vs PC3") + 
+    xlab("PC1") + 
+    ylab("PC3")
+
+```
+
+## PC2 vs PC3 
+
+```{r}
+library(ggplot2)
+ggplot(results$x, aes(x = PC2, y = PC3))  +
+  geom_point() + 
+    ggtitle("PCA : PC2 vs PC3") + 
+    xlab("PC2") + 
+    ylab("PC3")
+
+```
+
+
+

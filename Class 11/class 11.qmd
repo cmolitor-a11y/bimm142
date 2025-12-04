@@ -1,0 +1,123 @@
+---
+title: "Class 11: Structural Bioinformatics pt2"
+author: "Charlize Molitor (PID:A18515740)"
+format: pdf
+toc: TRUE
+---
+
+## AlphaFold DB
+
+The EBI maintains the largest database of AlphaFold structure prediction models at: https://alphafold.ebi.ac.uk
+
+From last class(before Halloween) we saw that the PDB had 244,290 (Oct 2025)
+
+The total number of protein sequences in UniProtKB is 199,579,901
+
+
+> **Key point**: This is a tiny fraction of sequences space that has structural coverage(0.12%)
+
+```{r}
+244290/199579901 * 100
+```
+
+AFDB is attempting to adress this gap...
+
+There are two "Quality Scores" from AlphaFold one for residues (i.e each amino acid) called **plDDT** score. The other **PAE** score measures the confidence in the relative position of two residues (i.e a score for every pair of residuals)
+
+
+## Generating your own structure predications 
+
+
+Figure of 5 generated HIV-PR models 
+![](pic1.png)
+
+
+
+And the top ranked model
+
+![](HIVPR.topmodel.png)
+
+
+
+plDDt score for model 1
+
+![](HIVPR_DIMER_23119_UNRELAXED_RANK_001_ALPHAFOLD2_MULTIMER_V3_MODEL_4_SEED_000.PDB-HIVPR_DIMER_23119_UNRELAXED_RANK_002_ALPHAFOLD2_MULTIMER_V3_MODEL_1_SEED_000.PDB-HIVPR_DIMER_23119_UNRELAXED_RANK_003_ALPHAFOLD2_MULTIMER_V3_MODEL_5_SEED_000.P.png)
+
+and model 5
+
+![](HIVPR_DIMER_23119_UNRELAXED_RANK_001_ALPHAFOLD2_MULTIMER_V3_MODEL_4_SEED_000.PDB-HIVPR_DIMER_23119_UNRELAXED_RANK_002_ALPHAFOLD2_MULTIMER_V3_MODEL_1_SEED_000.PDB-HIVPR_DIMER_23119_UNRELAXED_RANK_003_ALPHAFOLD2_MULTIMER_V3_MODEL_5_SEED_000.P copy.png)
+
+
+
+# Custom anaylsis of resulting models in R
+
+Read key result files into R. The first thing I need to know is what my results directory/folder is called (i.e it's name is different for every run/job )
+
+```{r}
+results_dir <- "HIVPR_dimer_23119/"
+
+# File names for all PDB models
+pdb_files <- list.files(path=results_dir,
+                        pattern="*.pdb",
+                        full.names = TRUE)
+
+# Print our PDB file names
+basename(pdb_files)
+```
+
+```{r}
+library(bio3d)
+
+m1 <- read.pdb(pdb_files[1])
+m1
+```
+
+
+```{r}
+head(m1$atom)
+```
+
+
+```{r}
+plot(m1$atom$b[m1$calpha], type="l", ylim=c(0,100))
+```
+
+
+
+
+```{r}
+plot.bio3d(m1$atom$b[m1$calpha], type="l")
+```
+
+## Residue conservation from alignment file
+
+```{r}
+aln_file <- list.files(path=results_dir,
+                       pattern=".a3m$",
+                        full.names = TRUE)
+aln_file
+```
+
+```{r}
+aln <- read.fasta(aln_file[1], to.upper = TRUE)
+```
+
+How many sequences are in this alignment
+
+```{r}
+dim(aln$ali)
+```
+
+```{r}
+sim <- conserv(aln)
+
+plotb3(sim[1:99], ylab="Conservation Score")
+
+```
+
+```{r}
+con <- consensus(aln, cutoff = 0.9)
+con$seq
+```
+
+
