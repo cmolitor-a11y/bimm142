@@ -1,0 +1,231 @@
+---
+title: "Class 5: Data Viz with ggplot"
+author: "Charlize Molitor(PID:A18515740)"
+format: gfm
+---
+
+Today we are exploring the **gggplot**package and how to make nice figures in R. 
+
+There are lots of ways to make figures and plot in R. These include:
+
+-so called "Base R"
+-and add on packages in **ggplot2**
+
+Here is a simple "base" R plot.
+
+```{r}
+head(cars)
+```
+
+We can simply pass to the `plot()` function
+
+```{r}
+plot(cars)
+```
+
+> Key-point:Base R is quick but not so nice looking in some folks eyes.
+
+Let's see how we can plot this with **ggplot**...
+
+1st I need to install this add-on package. For this we use the `install.packages()` function - **WE DO THIS IN THE CONSOLE, NOT our report**. This is a one time only deal.
+
+2nd We need to load the package with `library()` function every time we want to use it.
+
+```{r}
+library(ggplot2)
+ggplot(cars)
+```
+
+
+Every ggplot is composed of at leasr 3 layers:
+
+-**data**(i.e a data frame with the things you want to plot),
+-aesthetics **aes()** that map the columns of data that your plot features(i.e aesthetics)
+-geoms like **geom_point()** that srt how the plot apprears
+
+```{r}
+ggplot(cars)+
+  aes(x=speed, y=dist) +
+  geom_point()
+```
+
+> Key point: For simple "canned" graphs base R is quicker but as things get more custom and elobrate then ggplot wins out...
+
+Let's add more layers to out ggplot
+
+Add a line showing the relationship between x and y
+Add a title
+Add custom axis labels "Speed(MPH) and Distance(ft)" 
+Change the theme...
+
+```{r}
+ggplot(cars)+
+  aes(x=speed, y=dist) +
+  geom_point() +
+  geom_smooth(method = "lm", se=FALSE) + 
+  labs(title = "Silly plot of Speed vs Stopping distance",
+       x= "Speed (MPH)", 
+       y= "Distance (ft)") + 
+  theme_bw()
+```
+
+## Going further 
+
+Read some gene expression data
+
+```{r}
+url <- "https://bioboot.github.io/bimm143_S20/class-material/up_down_expression.txt"
+genes <- read.delim(url)
+head(genes)
+```
+
+> Q1. How many gene are in this wee dataset?
+
+```{r}
+nrow(genes)
+```
+```{r}
+ncol(genes)
+```
+
+
+> Q2. How many "up" regulated genes are there?
+
+```{r}
+sum( genes$State == "up" )
+```
+
+A useful function for counting up occurances of things in a vector is the `table ()` function. 
+
+
+
+```{r}
+table( genes$State )
+
+```
+Make a v1 figure 
+
+```{r}
+p <- ggplot(genes) +
+  aes(x =Condition1,
+       y=Condition2, 
+      col=State) +
+  geom_point() 
+
+p
+```
+
+
+
+```{r}
+p + 
+  scale_colour_manual(values=c("blue", "red", "purple")) + labs(title="Expression changes upon drug treatment", 
+     x="Control (no drug)", 
+     y= "Treatment(with drug)") +
+  theme_bw()
+```
+
+## More plotting
+
+Read in the gapminder database
+
+```{r}
+# File location online
+url <- "https://raw.githubusercontent.com/jennybc/gapminder/master/inst/extdata/gapminder.tsv"
+
+gapminder <- read.delim(url)
+```
+
+Let's have a wee peak
+
+```{r}
+head( gapminder, 3)
+```
+
+
+```{r}
+tail(gapminder, 3)
+```
+
+>Q4. How many different country values are in this dataset?
+
+```{r}
+nrow(gapminder)
+```
+
+```{r}
+length(table(gapminder$country))
+```
+
+>Q5. How many different continents values are in this dataset?
+
+```{r}
+unique(gapminder$continent)
+```
+
+```{r}
+ggplot(gapminder) +
+  aes(gdpPercap, lifeExp, col=continent) + 
+  geom_point()
+```
+
+```{r}
+ggplot(gapminder) +
+  aes(gdpPercap, lifeExp, col=continent, label=country) + 
+  geom_text() 
+```
+
+I can use the **ggrepel** package to make more sensible labels here 
+
+
+```{r}
+library(ggrepel)
+ggplot(gapminder) +
+  aes(gdpPercap, lifeExp, col=continent, label=country) + 
+  geom_point() +
+  geom_text_repel()
+
+```
+
+I want a seperate pannel per continent 
+
+```{r}
+ggplot(gapminder) +
+  aes(gdpPercap, lifeExp, col=continent, label=country) + 
+  geom_point() +
+  geom_text_repel() +
+  facet_wrap(~continent)
+```
+
+## Summary
+The main advantges of ggplot over base R plot are :
+
+1. **Grammar of Graphics** – ggplot2 is built on a clear, consistent “grammar” that separates data, aesthetics, and geometries. This makes it easier to construct complex plots step‑by‑step and to modify individual layers without rewriting the whole graph.
+2. **Layered Design** – You can add multiple geometric objects (points, lines, ribbons, etc.) on top of each other with +. This encourages incremental building and easy tweaking of components such as annotations, smoothers, or facets.
+3. **Automatic Aesthetic Mapping** – Mapping variables to colour, shape, size, or transparency is handled inside aes(). ggplot2 automatically generates appropriate legends and scales, reducing boilerplate code.
+4. **Faceting for Small‑Multiples** – facet_wrap() and facet_grid() split data into a matrix of sub‑plots with minimal effort, a feature that requires considerable manual work in base graphics.
+5. **Theme System** – Consistent styling is achieved through reusable themes (theme_minimal(), theme_bw(), custom theme() objects). Changing fonts, backgrounds, or gridlines across many plots is straightforward.
+6. **Built‑in Statistical Transformations** – Geoms like geom_smooth(), geom_histogram(), and geom_boxplot() automatically compute summaries (e.g., density, counts, quantiles) without extra code.
+7. **Extensibility** – A large ecosystem of extensions (e.g., ggrepel, gganimate, sf for spatial data) builds on the same grammar, allowing you to add labels, animations, or map layers with minimal learning curve.
+8. **Publication‑Ready Output** – Fine‑grained control over every visual element, combined with seamless integration with ggsave() for PDF, PNG, or vector formats, makes it easier to produce figures that meet journal standards.
+9. **Consistency Across Plot Types** – Whether you are creating a scatterplot, heatmap, or choropleth, the same syntax (ggplot(data) + geom_*() + ...) applies, reducing the mental load of remembering different function signatures.
+
+
+
+
+```{r}
+ggplot(mtcars) + 
+  aes(x=mpg, y=disp) + 
+  geom_point()
+```
+
+
+
+
+
+
+```{r}
+ggplot(mtcars, aes(mpg, disp)) + 
+  geom_point()
+```
+
