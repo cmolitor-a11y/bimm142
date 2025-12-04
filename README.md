@@ -20,3 +20,11 @@ Classwork for [BIMM143 at UC SAN DIEGO](https://bioboot.github.io/bimm143_F25/) 
 - Class 12[Transcriptomics and the analysis of RNA-Seq data]()
 
 - Class 14[RNA-Seq analysis mini-project]()
+
+- Class 15[Hands-on with Git and GitHub]()
+
+- Class 16[Essential UNIX for bioinformatics]()
+
+- Class 17[Genome informatics and high throughput sequencing]()
+
+- Class 19[Investigating pertussis resurgence mini project]()
