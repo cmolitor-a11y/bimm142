@@ -23,7 +23,7 @@ Classwork for [BIMM143 at UC SAN DIEGO](https://bioboot.github.io/bimm143_F25/) 
 
 - Class 11[Structural Bioinformatics 2](Class 11/class 11.md)
 
-- Class 12[Transcriptomics and the analysis of RNA-Seq data]()
+- Class 12[Transcriptomics and the analysis of RNA-Seq data](Class 12/Class 12.md)
 
 - Class 14[RNA-Seq analysis mini-project]()
 
