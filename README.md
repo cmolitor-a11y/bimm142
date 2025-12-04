@@ -21,7 +21,7 @@ Classwork for [BIMM143 at UC SAN DIEGO](https://bioboot.github.io/bimm143_F25/) 
 
 - Class 10[ Halloween Candy Mini-Project]()
 
-- Class 11[Structural Bioinformatics 2]()
+- Class 11[Structural Bioinformatics 2](Class 11/class 11.md)
 
 - Class 12[Transcriptomics and the analysis of RNA-Seq data]()
 
