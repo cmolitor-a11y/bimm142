@@ -7,7 +7,7 @@ This repo is for my Bioinformatics class
 # BIMM143
 Classwork for [BIMM143 at UC SAN DIEGO](https://bioboot.github.io/bimm143_F25/) during Fall 2025.
 
-- Class 04 [R fundamentals]()
+- Class 04 [R fundamentals](class04.pdf)
   
 - Class 05 [Data Viz with ggplot](class05/class05.md)
   
