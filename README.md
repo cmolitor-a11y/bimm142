@@ -19,7 +19,7 @@ Classwork for [BIMM143 at UC SAN DIEGO](https://bioboot.github.io/bimm143_F25/) 
 
 - Class 09 [Structural Bioinformatics 1](Class 09/class 09.md)
 
-- Class 10[ Halloween Candy Mini-Project]()
+- Class 10[ Halloween Candy Mini-Project](class 10/Class-10.pdf)
 
 - Class 11[Structural Bioinformatics 2](Class 11/class 11.md)
 
@@ -27,11 +27,11 @@ Classwork for [BIMM143 at UC SAN DIEGO](https://bioboot.github.io/bimm143_F25/) 
 
 - Class 14[RNA-Seq analysis mini-project](Class 14/Untitled.md)
 
-- Class 15[Hands-on with Git and GitHub]()
+- Class 15[Hands-on with Git and GitHub](https://github.com/cmolitor-a11y/bimm142)
 
-- Class 16[Essential UNIX for bioinformatics]()
+- Class 16[Essential UNIX for bioinformatics](class16/class 16 bonus.md)
 
-- Class 17[Genome informatics and high throughput sequencing]()
+- Class 17[Genome informatics and high throughput sequencing](class 17/Class 17.md)
 
-- Class 19[Investigating pertussis resurgence mini project]()
+- Class 19[Investigating pertussis resurgence mini project](Class 19/class 19.md)
 >>>>>>> 1f6dd447fad13531b84e519e210415ad4151cedb
