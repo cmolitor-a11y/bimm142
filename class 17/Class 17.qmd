@@ -1,7 +1,7 @@
 ---
 title: "Class 17"
 author: "Charlize Molitor (PID:18515740)"
-format: pdf
+format: gfm
 ---
 
 ## Section 1: Proportion of G|G in a population 
